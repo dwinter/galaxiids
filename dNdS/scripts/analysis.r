@@ -1,0 +1,13 @@
+#!/usr/bin/Rscript
+library(ggplot2)
+theme_set(theme_bw())
+selection <- read.csv("results/selection.csv")
+p <- ggplot(selection, aes(ks, ka))
+svg("figures/first_plot.svg", width=9, heigh=5)
+p + geom_point() + geom_abline()
+dev.off()
+svg("figures/second_plot.svg", width=9, height=5)
+p2 <- ggplot(selection[selection$ks < 0.08,], aes(ks, ka))
+p2 + geom_point() + geom_abline() + coord_equal()
+dev.off()
+#sum(with(selection, ka+ks==0))
